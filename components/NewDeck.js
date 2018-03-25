@@ -30,7 +30,7 @@ class NewDeck extends Component {
 
     console.log(deck);
     this.props.dispatch(addDeck({
-      deck
+      [deck.title]: deck
     }))
 
     this.setState(() => ({title:''}));

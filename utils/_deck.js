@@ -3,7 +3,7 @@
 import { AsyncStorage } from 'react-native'
 import { getFlashcardMetaInfo } from './helpers'
 
-export const DECKS_STORAGE_KEY = 'Flashcards:Decks3'
+export const DECKS_STORAGE_KEY = 'Flashcards:Decks10'
 
 function setDummyData () {
   let dummyData = getFlashcardMetaInfo();
