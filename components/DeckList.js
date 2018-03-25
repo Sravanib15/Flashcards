@@ -21,8 +21,8 @@ class DeckList extends Component {
     ready: false
   }
 
-  toDeck = ({ title }) => {
-    this.props.navigation.navigate('DeckCover', { title });
+  toDeck = ({ title, questions }) => {
+    this.props.navigation.navigate('DeckCover', { title, questions });
   }
 
   componentWillMount() {

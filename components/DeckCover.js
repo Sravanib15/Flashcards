@@ -19,14 +19,14 @@ function SubmitBtn ({ onPress, name }) {
 class DeckCover extends Component {
 
   addCard = () => {
-    const { title } = this.props;
-    this.navigateTo('AddCard', { title: title})
+    const { title, questions} = this.props;
+    this.navigateTo('AddCard', { title, questions })
 
   }
 
   startQuiz = () => {
-    const { title } = this.props;
-    this.navigateTo('QuizView', { title: title})
+    const { title, questions } = this.props;
+    this.navigateTo('QuizView', { title, questions })
   }
 
   navigateTo = (name, params) => {
@@ -34,8 +34,8 @@ class DeckCover extends Component {
   }
 
   render() {
-    const { title, deck } = this.props;
-    const { questions = [] } = deck;
+    const { title, deck, questions } = this.props;
+    //const { questions } = deck;
     const questionsCount = questions.length;
     return (
       <View style={styles.container}>
@@ -115,9 +115,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state, props) {
-  const { title } = props.navigation.state.params;
+  const { title, questions } = props.navigation.state.params;
   const deck = state[title];
-  return { title, deck }
+  console.log(title);
+  console.log(deck);
+  return { title, questions, deck }
 }
 
 export default connect(

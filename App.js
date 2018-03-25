@@ -13,6 +13,7 @@ import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import thunk from 'redux-thunk'
+import { setLocalNotification } from './utils/helpers'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -97,6 +98,9 @@ function FlashCardStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={createStore(reducer)}>

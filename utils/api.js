@@ -6,23 +6,23 @@ export function fetchDeckResults () {
     .then(getDeckResults)
 }
 
-export function submitDeck ({ deckKey, deck }) {
+export function submitDeck ({ title, deck }) {
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [deckKey]: deck
+    [title]: deck
   }))
 }
 
-export function removeDeck(deckKey) {
+export function removeDeck({ title }) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      data[deckKey] = undefined
-      delete data[key]
+      data[title] = undefined
+      delete data[title]
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
     })
 }
 
-export function getDesks() {
+export function getDecks() {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
@@ -30,19 +30,19 @@ export function getDesks() {
     })
 }
 
-export function getDesk(id) {
+export function getDeck({ title }) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      return data[id];
+      return data[title];
     })
 }
 
-export function addCardInDeck({deckKey, card}) {
+export function addCardInDeck({ title, card }) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      data[deckKey].questions.push(card);
+      data[title].questions.push(card);
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
     })
 }

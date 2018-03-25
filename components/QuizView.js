@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { addCard } from '../actions'
 import { purple, white, green, red } from '../utils/colors'
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotification } from '../utils/helpers'
 
 function SubmitBtn ({ onPress, name }) {
   return (
@@ -45,26 +46,31 @@ class QuizView extends Component {
     this.setState({currentQuestion, score});
   }
 
-  toDeckCover = (title) => {
-    this.props.navigation.navigate('DeckCover', { title });
+  toDeckCover = (title, questions) => {
+    clearLocalNotification();
+    this.props.navigation.navigate('DeckCover', { title, questions });
+  }
+
+  restart = (title, questions) => {
+    clearLocalNotification();
+    this.setState({display: 'answer', currentQuestion: 0, score: 0});
   }
 
   render() {
     const { currentQuestion, totalQuestions, display } = this.state;
     const { deck } = this.props;
-    let { questions } = deck;
-    console.log(questions);
+    let { title, questions } = deck;
     questions = this.shuffle(questions);
-    console.log(currentQuestion);
     const card  = questions[currentQuestion];
-    console.log(currentQuestion);
 
     if (!card) {
       const { score } = this.state
       if (currentQuestion === questions.length) {
         return (
           <View style={styles.container}>
-            <Text style={styles.bigblue}> You have answered {(score/currentQuestion) * 100 }%</Text>
+            <Text style={styles.bigblue}> You have answered {Math.round((score/currentQuestion) * 100)}%</Text>
+            <SubmitBtn onPress={() => this.restart()} name="Restart Quiz" />
+            <SubmitBtn onPress={() => this.toDeckCover(title, questions)} name="Back to Deck"/>
           </View>
         )
       }

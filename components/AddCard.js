@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform, TextInput } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-import { addCardInDeck } from '../utils/api'
+import { addCardInDeck, getDeck } from '../utils/api'
 import { connect } from 'react-redux'
-import { addCard } from '../actions'
+import { addCard, receiveDeck } from '../actions'
 import { purple, white } from '../utils/colors'
 import { NavigationActions } from 'react-navigation'
 
@@ -26,22 +26,29 @@ class AddCard extends Component {
     const { question, answer } = this.state;
     const { deck } = this.props;
     const { title } = deck;
+    const card = { question, answer };
     console.log(question);
-    deck.questions.push({question, answer});
+    deck.questions.push(card);
     this.props.dispatch(addCard({
       deck
     }))
 
-    const card = {question, answer};
+
     addCardInDeck({
       title, card
     })
 
-    this.toDeckCover(title);
+    this.toDeckCover(title, deck.questions);
   }
 
-  toDeckCover = (title) => {
-    this.props.navigation.navigate('DeckCover', { title });
+  toDeckCover = (title, questions) => {
+    this.props.navigation.navigate('DeckCover', { title, questions });
+  }
+
+  componentWillMount() {
+    const { dispatch, title } = this.props
+    getDeck(title)
+      .then((deck) => dispatch(receiveDeck(deck)))
   }
 
   render() {
@@ -132,9 +139,9 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state, props) {
-  const { title } = props.navigation.state.params;
+  const { title, questions } = props.navigation.state.params;
   const deck = state[title];
-  return { title, deck }
+  return { title, questions, deck }
 }
 
 export default connect(

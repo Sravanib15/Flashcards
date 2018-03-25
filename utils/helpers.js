@@ -4,7 +4,7 @@ import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector
 import { red, orange, blue, lightPurp, pink, white } from './colors'
 import { Notifications, Permissions } from 'expo'
 
-const NOTIFICATION_KEY = 'UdaciFitness:notifications'
+const NOTIFICATION_KEY = 'Flashcard:notifications'
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -63,8 +63,8 @@ export function clearLocalNotification () {
 
 function createNotification () {
   return {
-    title: 'Log your stats!',
-    body: "👋 don't forget to log your stats for today!",
+    title: 'Test your knowledge!',
+    body: "👋 don't forget to test your knowledge using Flashcards!",
     ios: {
       sound: true,
     },
@@ -99,7 +99,6 @@ export function setLocalNotification () {
                   repeat: 'day',
                 }
               )
-
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
             }
           })
