@@ -8,3 +8,4 @@ Below you'll find information about performing common tasks. The most recent ver
 2)Start the project
 * `yarn install`
 * `yarn start`
+Tested in IOS. I was not able to test in Andriod.
