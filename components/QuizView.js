@@ -28,8 +28,7 @@ class QuizView extends Component {
 
   toggleDisplay = () => {
     const { display } = this.state;
-    display === 'question' ? this.setState({display:'answer'}) : this.setState({display:'question'})
-
+    display === 'question' ? this.setState({display:'answer'}) : this.setState({display:'question'});
   }
 
   shuffle = (o) => {
@@ -43,7 +42,8 @@ class QuizView extends Component {
     currentQuestion++;
     flag && score++;
 
-    this.setState({currentQuestion, score});
+    let display = 'answer';
+    this.setState({display, currentQuestion, score});
   }
 
   toDeckCover = (title, questions) => {
@@ -60,7 +60,7 @@ class QuizView extends Component {
     const { currentQuestion, totalQuestions, display } = this.state;
     const { deck } = this.props;
     let { title, questions } = deck;
-    questions = this.shuffle(questions);
+    //questions = this.shuffle(questions);
     const card  = questions[currentQuestion];
 
     if (!card) {
